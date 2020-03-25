@@ -85,7 +85,7 @@ public class DatabaseHelper {
         return result;
     }
 
-    public String getGoal(String username) {
+    public String getGoal(String name) {
         String goal = "";
 
         try{
@@ -93,7 +93,7 @@ public class DatabaseHelper {
             Connection con= DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/weightness?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","qqjanet1010");
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from goal where username = " + username);
+            ResultSet rs=stmt.executeQuery("select * from goal where username = '" + name + "'");
             while(rs.next()) {
                 goal = rs.getString(2);
             }
@@ -103,13 +103,13 @@ public class DatabaseHelper {
         return goal;
     }
 
-    public void setGoal(String username, String goal) {
+    public void setGoal(String name, String ugoal) {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/weightness?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","qqjanet1010");
             Statement stmt=con.createStatement();
-            stmt.executeUpdate("insert into goal (username, password) values (\"" + username + "\", \"" + goal + "\")");
+            stmt.executeUpdate("insert into goal (username, goal) values (\"" + name + "\", \"" + ugoal + "\")");
             con.close();
         }catch(Exception e){ System.out.println(e);}
     }
